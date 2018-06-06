@@ -102,6 +102,10 @@ bool Clock::clockOn(){
 class Comm{
   public:
     Comm();
+    Comm(String t, String c):_type(t), _cmd(c),_ch(-1),_data(0){
+       if(this->_ch<0 && !(t!="CMD" || t!="NIB" || t!="NIN" || t!="NIF"))
+        this->_ch=-1;
+    }
     Comm(String t,String c,int ch):_type(t), _cmd(c),_ch(ch),_data(0){
       if(this->_ch<0 && !(t!="CMD" || t!="NIB" || t!="NIN" || t!="NIF"))
         this->_ch=-1;
@@ -216,11 +220,13 @@ int Controller::getSize(){
 
 Comm Controller::add(int i, Comm c){
   int s=this->getSize();
-  if(i>=0 && i<s){
-   if(c.getCh()==0 && i!= 0)
-    c.setCh(i);
-   this->_comms[i]=c;
-   return this->_comms[i]; 
+  String t = c.getType();
+  if(0<=i && i<s){
+    if(c.getCh()==-1){
+      c.setCh(i);
+    }
+    this->_comms[i]=c;
+    return this->_comms[i]; 
   }
   return Comm();
 }
