@@ -12,61 +12,61 @@ This library contains a few classes to help with comunicating with the game
 -Clock
 -Pair_i
 
-*Controller: holds all the requests and commands that you set up and has functions to sync and execute each one
-  Constructors
-    -Controller(int s)
-      s is the number of requests and commands the controller will hold
-  Member Functions
-    -getSize() returns int _size  The max number of Comms
-    -add(int, Comm) adds a Comm to the _comms array at the int index
-    -operator [int] returns the Comm in _comms at int index
-    -sync() Sends the sync commands for all commands and requests per the serial protocol 
-    -exc(int) Sends the command set up in the sync protocol
-    -updateData(int i,int d) Updates the data in _comms[i] to d returns true if it is sucsessful
-    -updateData(Pair_i) Updates the data in _comms[Pair_i.A] to Pair_i.B returns true if it is sucsessful
-    -getData(int) returns the data in _comms[int]
-    -readUpdate(String) Returns the channel and data from the string read in from the string in a Pair_i .A=channel .B=data
-    -runUpdate(String) Updates the data in the Comm in _comms at the index = to the channel in the string to the data in the string
-  Private Data Members
-    -const int _size The size of _comms
-    -Comm* _comms Array of Comm
-      
-*Comm: container for requests and commands
-  Constructors
-    -Default
-      sets all string data menbers to ""
-      sets all int data members to -1
-    -Comm(String t, String c, int ch)
-      sets _type to t
-      sets _cmd to c
-      sets _ch to ch if a valid value
-  Member Functions 
-    -getType() returns the _type string
-    -getCmd() returns the _cmd string
-    -getCh()  returns the _ch int 
-    -getData() returns the _data int
-    -setType(String) sets _type to String
-    -setCmd(String) sets _cmd to String
-    -setCh(int) sets _ch to int
-    -setData(int) sets _data to int
-    -String sync() returns the sync string per serial protocol
-    -String exc()  returns the exc string per serial protocol
-  Private Data Members
-    -String _type the type of request/command  ie: CMD || NIB || NIN || NIF
-    -String _command the command/request 
-    -int _ch channel to listen to or send command to
-    -int _data data from request
+*Controller: holds all the requests and commands that you set up and has functions to sync and execute each one <br>
+  Constructors <br>
+    -Controller(int s) <br>
+      s is the number of requests and commands the controller will hold <br>
+  Member Functions <br>
+    -getSize() returns int _size  The max number of Comms <br>
+    -add(int, Comm) adds a Comm to the _comms array at the int index <br>
+    -operator [int] returns the Comm in _comms at int index <br>
+    -sync() Sends the sync commands for all commands and requests per the serial protocol  <br>
+    -exc(int) Sends the command set up in the sync protocol <br>
+    -updateData(int i,int d) Updates the data in _comms[i] to d returns true if it is sucsessful <br>
+    -updateData(Pair_i) Updates the data in _comms[Pair_i.A] to Pair_i.B returns true if it is sucsessful <br>
+    -getData(int) returns the data in _comms[int] <br>
+    -readUpdate(String) Returns the channel and data from the string read in from the string in a Pair_i .A=channel .B=data <br>
+    -runUpdate(String) Updates the data in the Comm in _comms at the index = to the channel in the string to the data in the string <br>
+  Private Data Members <br>
+    -const int _size The size of _comms <br>
+    -Comm* _comms Array of Comm <br>
+       <br>
+*Comm: container for requests and commands <br>
+  Constructors <br>
+    -Default <br>
+      sets all string data menbers to "" <br>
+      sets all int data members to -1 <br>
+    -Comm(String t, String c, int ch) <br>
+      sets _type to t <br>
+      sets _cmd to c <br>
+      sets _ch to ch if a valid value <br>
+  Member Functions  <br>
+    -getType() returns the _type string <br>
+    -getCmd() returns the _cmd string <br>
+    -getCh()  returns the _ch int <br> 
+    -getData() returns the _data int <br>
+    -setType(String) sets _type to String <br>
+    -setCmd(String) sets _cmd to String <br>
+    -setCh(int) sets _ch to int <br>
+    -setData(int) sets _data to int <br>
+    -String sync() returns the sync string per serial protocol <br>
+    -String exc()  returns the exc string per serial protocol <br>
+  Private Data Members <br>
+    -String _type the type of request/command  ie: CMD || NIB || NIN || NIF <br>
+    -String _command the command/request <br> 
+    -int _ch channel to listen to or send command to <br>
+    -int _data data from request <br>
     
-*Clock: used to track passage of time
-  Constructors
-    -Default
-      sets _clockOn to false
-      sets _startClock to 0
-  Member Functions
-    -startClock() sets _startClock to millis() sets _clockOn to true
-    -stopClock() sets _clockOn to false
-    -unsigned long deltaTime() returns the differnce between millis() and _startClock
-    -bool clockOn() returns _clockOn true = on
+*Clock: used to track passage of time <br>
+  Constructors <br>
+    -Default <br>
+      sets _clockOn to false <br>
+      sets _startClock to 0 <br>
+  Member Functions <br>
+    -startClock() sets _startClock to millis() sets _clockOn to true <br>
+    -stopClock() sets _clockOn to false <br>
+    -unsigned long deltaTime() returns the differnce between millis() and _startClock <br>
+    -bool clockOn() returns _clockOn true = on <br>
   Private Data Members
     -unsigned long _startClock when the clock starts
     -bool _clockOn if the clock is on
