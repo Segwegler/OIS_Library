@@ -1,16 +1,16 @@
 # OiS_Library
-A library to help interface with objects in space
-The serial protocol can be found at http://objectsgame.com/the-controllers/ois-serial-data-protocol/
-Commands and requests can be found in the wiki 
+A library to help interface with objects in space <br>
+The serial protocol can be found at http://objectsgame.com/the-controllers/ois-serial-data-protocol/ <br>
+Commands and requests can be found in the wiki <br> 
 
-To use this with the Arduino ide put the header files in the sketch folder 
-Then put #include "my_OIS.h" at the begining of your sketch
+To use this with the Arduino ide put the header files in the sketch folder  <br>
+Then put #include "my_OIS.h" at the begining of your sketch <br>
 
-This library contains a few classes to help with comunicating with the game
--Controller
--Comm
--Clock
--Pair_i
+This library contains a few classes to help with comunicating with the game <br>
+-Controller <br>
+-Comm <br>
+-Clock <br>
+-Pair_i <br>
 
 *Controller: holds all the requests and commands that you set up and has functions to sync and execute each one <br>
   Constructors <br>
@@ -67,30 +67,30 @@ This library contains a few classes to help with comunicating with the game
     -stopClock() sets _clockOn to false <br>
     -unsigned long deltaTime() returns the differnce between millis() and _startClock <br>
     -bool clockOn() returns _clockOn true = on <br>
-  Private Data Members
-    -unsigned long _startClock when the clock starts
-    -bool _clockOn if the clock is on
+  Private Data Members <br>
+    -unsigned long _startClock when the clock starts <br>
+    -bool _clockOn if the clock is on <br>
     
-*Pair_i: int pair for some returns
-  Constructors
-    -Default
-      sets _a=-1
-      sets _b=-1
-    -Pair_i(int a, int b)
-      sets _a=a
-      sets _b=b
-  Member Functions
-    -int getA() returns _a
-    -int getB() returns _b
-    -setA(int a) sets _a=a
-    -setA(int b) sets _b=b
-  Private Data Members
-    -int _a
-    -int _b
+*Pair_i: int pair for some returns <br>
+  Constructors <br>
+    -Default <br>
+      sets _a=-1 <br>
+      sets _b=-1 <br>
+    -Pair_i(int a, int b) <br>
+      sets _a=a <br>
+      sets _b=b <br>
+  Member Functions <br>
+    -int getA() returns _a <br>
+    -int getB() returns _b <br>
+    -setA(int a) sets _a=a <br>
+    -setA(int b) sets _b=b <br>
+  Private Data Members <br>
+    -int _a <br>
+    -int _b <br>
     
-% Handshake(): sends initial connection request and waits for the responce
-  How to call
-    Handshake();  Will delay ~
+% Handshake(): sends initial connection request and waits for the responce <br>
+  How to call <br>
+    Handshake();  Will delay ~5000ms <br>
       
       
     
