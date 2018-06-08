@@ -34,6 +34,52 @@ class Pair_i{
   int _b;
 };
 
+//struct Node
+struct Node{
+  Node *next;
+  int data;
+};
+
+//Class Queue
+class Queue{
+  public:
+    Queue(){
+      head=NULL;
+    }
+    ~Queue(){
+      delete head;
+    }
+
+    void push(int d);
+    int pop();
+    
+  private:
+    Node *head;
+  
+};
+
+void Queue::push(int d){
+  Node *temp = new Node;
+  temp->data=d;
+  temp->next=NULL;
+  if(head == NULL){
+    this->head=temp;
+    temp=NULL;
+  }else{
+    this->head->next=temp;
+   }
+}
+
+int Queue::pop(){
+  if(!(this->head==NULL)){
+    int t = this->head->data;
+    Node *temp = this->head;
+    this->head = temp->next;
+    delete temp;
+    return t;
+  }
+  return -1;
+}
 
 //Class Clock
 //used to track passage of time
@@ -205,6 +251,7 @@ class Controller{
     void exc(int i);
     bool updateData(int i, int data);
     bool updateData(Pair_i p);
+    int getUpdate();
     int getData(int i);
     Pair_i readUpdate(String s);
     Pair_i runUpdate(String s);
@@ -212,6 +259,7 @@ class Controller{
   private:
   const int _size;
   Comm* _comms;
+  Queue _updates;
 };
 
 int Controller::getSize(){
@@ -257,6 +305,9 @@ void Controller::exc(int i){
 bool Controller::updateData(int i,int d){
   if(i>=0 && i<this->getSize() && this->_comms[i].getType()!="CMD"){
     this->_comms[i].setData(d);
+    #ifndef NO_UPDATES
+    this->_updates.push(i);
+    #endif
     return true;
   }
   return false;
@@ -269,10 +320,17 @@ bool Controller::updateData(Pair_i p){
   if(p.getA()>=0 && p.getA()<this->getSize()){
     if(this->_comms[p.getA()].getType()!="CMD"){
       this->_comms[p.getA()].setData(p.getB());
+      #ifndef NO_UPDATES
+      this->_updates.push(p.getA());
+      #endif
       return true;
     }
   }
   return false;
+}
+
+int Controller::getUpdate(){
+  return this->_updates.pop();
 }
 
 //getData
@@ -305,8 +363,9 @@ Pair_i Controller::runUpdate(String s){
     Serial.print(" <> ");
     Serial.println(this->readUpdate(s).getB());
     #endif
-    if(this->updateData(this->readUpdate(s))){
-      return this->readUpdate(s);
+    Pair_i ret = this->readUpdate(s);
+    if(this->updateData(ret)){
+      return ret;
     }
       
   }

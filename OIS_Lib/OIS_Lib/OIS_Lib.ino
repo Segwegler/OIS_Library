@@ -11,17 +11,16 @@
   const int CHANNELS = 4;
   //controller will hold all of your commands and requests
   Controller controller(CHANNELS);
-  bool flag[CHANNELS];//used to tell when something updates (will be updated)
 //end setup
 
 String output;//used to store responses from the game
+bool updates; //just here for testing/examples
 
 void setup() {
   //set variables to default values
   output = "";
-  for(int i=0; i<CHANNELS; ++i)
-    flag[i]=false;
-  
+  updates = false;
+ 
   Serial.begin(9600);//opens the serial port with a baud rate of 9600
   pinMode(LED_BUILTIN, OUTPUT);//A default output its built in to some boards and is also on pin 13 on the mega
 
@@ -48,6 +47,13 @@ void setup() {
   controller.add(2,comm1);//comm1 will be stored at controller[2]
   controller.add(3,comm2);//comm2 will be stored at controller[3] and now has the channel 3
 
+  /*
+   * 
+   * If you want to use controller.getUpdate() to see when a update happens the channel needs to be the same as the index 
+   * 
+   */
+
+
   //sync sends the commands and requests to the game so it knows which commands/requests should be on which channels
   //if this is not called the game wont respond to any serial commands and wont send any updates for your requests
   controller.sync();
@@ -56,10 +62,18 @@ void setup() {
 void loop() {
   output = GetSerial();
   if(output != ""){
-    Serial.println("DATA GET");
+    if(controller.runUpdate(output).getA() < 0)
+    {
+      Serial.println("not a update?");//if this shows up the game is sending somthing it should not (or somthing else is wrong)
+      
+        updates = true;
+    }
   }
-  
-  
+  int i = controller.getUpdate();
+  if(i>=0){
+    Serial.println(controller.getData(i)); 
+    //your update code should go here
+  }
   
     
 }
