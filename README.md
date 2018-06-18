@@ -3,9 +3,12 @@ A library to help interface with objects in space <br>
 The serial protocol can be found at http://objectsgame.com/the-controllers/ois-serial-data-protocol/ <br>
 Commands and requests can be found in the wiki <br> 
 
-To use this with the Arduino ide put the header files in the sketch folder  <br>
-Then put #include "my_OIS.h" at the begining of your sketch <br>
+### Installation
+1. Dowload the library: https://github.com/Segwegler/OIS_Library/archive/master.zip
+2. (In the Arduino IDE) Sketch > Include Library > Add .ZIP Library > select the downloaded file > Open
+3. You will find example sketches under File > Examples > OiS_Library
 
+### Usage
 This library contains a few classes to help with comunicating with the game <br>
 -Controller <br>
 -Comm <br>
